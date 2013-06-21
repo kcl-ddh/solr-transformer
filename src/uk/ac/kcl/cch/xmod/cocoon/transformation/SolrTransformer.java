@@ -33,7 +33,7 @@ import org.apache.cocoon.environment.SourceResolver;
 import org.apache.cocoon.transformation.AbstractDOMTransformer;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.CommonsHttpSolrServer;
+import org.apache.solr.client.solrj.impl.HttpSolrServer;
 import org.apache.solr.client.solrj.request.DirectXmlRequest;
 import org.apache.solr.common.util.NamedList;
 import org.w3c.dom.DOMException;
@@ -98,7 +98,6 @@ public class SolrTransformer extends AbstractDOMTransformer implements Configura
      *      java.util.Map, java.lang.String,
      *      org.apache.avalon.framework.parameters.Parameters)
      */
-    @SuppressWarnings("unchecked")
     public void setup(SourceResolver resolver, Map objectModel, String src, Parameters parameters)
             throws ProcessingException, SAXException, IOException {
 
@@ -107,7 +106,7 @@ public class SolrTransformer extends AbstractDOMTransformer implements Configura
             solrUrl = parameters.getParameter(SOLR_URL_PARAM, solrUrl);
 
             // creates a new Solr server using commons HTTP
-            solrServer = new CommonsHttpSolrServer(solrUrl);
+            solrServer = new HttpSolrServer(solrUrl);
 
             // gets the logger
             logger = getLogger();
